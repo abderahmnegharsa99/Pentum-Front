@@ -25,7 +25,24 @@ export class SaasComponent implements OnInit, AfterViewInit {
   saveWallt() {
     console.log("azaze");
 
-    this.newContactModal.show();
+    const portefeuilleData = this.createPortefeuilleForm.value;
+    console.log(portefeuilleData);
+
+    this.userService.createPortefeuille(portefeuilleData).subscribe({
+      next: (response) => {
+        console.log("Portefeuille created successfully:", response);
+        this.newPortefeuilleModal.hide();
+      },
+      error: (error) => {
+        console.error("Error creating portefeuille:", error);
+      },
+    });
+  }
+
+  openEditwallet() {
+    console.log("azaze");
+
+    this.newPortefeuilleModal.show();
   }
   @ViewChild("scrollRef") scrollRef;
 
@@ -67,6 +84,15 @@ export class SaasComponent implements OnInit, AfterViewInit {
       age: ["", [Validators.required]],
       profession: ["", [Validators.required]],
     });
+
+    this.createPortefeuilleForm = this.formBuilder.group({
+      cashDispo: [null, [Validators.required, Validators.min(0)]],
+      valTotPortefeuille: [null, [Validators.required, Validators.min(0)]],
+      rendementTotal: [null, [Validators.required, Validators.min(0)]],
+      riskProfile: [null, [Validators.required, Validators.min(1)]],
+      devisesSupportees: [null, Validators.required],
+      compteBancaireId: [null, [Validators.required, Validators.min(1)]],
+    });
     this.breadCrumbItems = [
       { label: "Dashboards" },
       { label: "Saas", active: true },
@@ -90,7 +116,7 @@ export class SaasComponent implements OnInit, AfterViewInit {
   portefeuilles: any[];
   user: User;
   createContactForm: FormGroup;
-
+  createPortefeuilleForm: FormGroup;
   loadAccBancaier(): void {
     // Get the current user from local storage (assuming it's stored as JSON)
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
@@ -110,7 +136,7 @@ export class SaasComponent implements OnInit, AfterViewInit {
     }
   }
   @ViewChild("newContactModal", { static: false })
-  newContactModal?: ModalDirective;
+  newPortefeuilleModal?: ModalDirective;
   savePortefeuilles() {
     // Check if the form is valid before proceeding
     if (this.createContactForm.valid) {
@@ -119,7 +145,7 @@ export class SaasComponent implements OnInit, AfterViewInit {
 
       // Reset form and close modal after saving
       this.createContactForm.reset();
-      this.newContactModal?.hide();
+      this.newPortefeuilleModal?.hide();
     } else {
       console.log("Form is invalid");
     }

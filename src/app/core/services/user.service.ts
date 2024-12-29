@@ -48,4 +48,12 @@ export class UserProfileService {
     // Make the GET request to fetch the associated CompteBancaire
     return this.http.get<any>(url, { params });
   }
+
+  createPortefeuille(portefeuilleDTO: any): Observable<any> {
+    // Endpoint URL to create a new Portefeuille (adjust as needed)
+    const url = `http://localhost:3050//user/portefeuille`; // Your backend endpoint
+
+    // Make the POST request to create a new Portefeuille
+    return this.http.post<any>(url, portefeuilleDTO);
+  }
 }

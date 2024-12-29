@@ -246,7 +246,7 @@
           <button
             href="javascript: void(0);"
             class="btn btn-primary"
-            (click)="saveWallt()"
+            (click)="openEditwallet()"
           >
             Add new Portefeuille
           </button>
@@ -558,123 +558,148 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="newContactModalLabel">Edit Profile</h5>
+          <h5 class="modal-title" id="newPortefeuilleModalLabel">
+            Create Portefeuille
+          </h5>
           <button
             type="button"
             class="btn-close"
-            (click)="newContactModal.hide()"
+            (click)="newPortefeuilleModal.hide()"
           ></button>
         </div>
         <div class="modal-body">
           <form
-            (ngSubmit)="savePortefeuilles()"
-            [formGroup]="createContactForm"
+            (ngSubmit)="saveWallt()"
+            [formGroup]="createPortefeuilleForm"
             autocomplete="off"
-            class="needs-validation createContact-form"
-            id="createContact-form"
+            class="needs-validation"
+            id="createPortefeuilleForm"
             novalidate
           >
             <div class="row">
               <div class="col-lg-12">
-                <input type="hidden" class="form-control" id="userid-input" />
-
-                <!-- Avatar Section -->
-                <div class="text-center mb-4"></div>
-
-                <!-- User profession -->
+                <!-- Cash Available -->
                 <div class="mb-3">
-                  <label for="userprofession-input" class="form-label"
-                    >User Profession</label
+                  <label for="cashDispo-input" class="form-label"
+                    >Cash Available</label
                   >
                   <input
-                    type="text"
-                    id="userprofession-input"
+                    type="number"
+                    id="cashDispo-input"
                     class="form-control"
-                    placeholder="Enter profession"
-                    formControlName="profession"
-                    required
-                  />
-                  <div class="invalid-feedback">Please enter a profession.</div>
-                </div>
-
-                <!-- User phone -->
-                <div class="mb-3">
-                  <label for="userphone-input" class="form-label"
-                    >User Phone</label
-                  >
-                  <input
-                    type="text"
-                    id="userphone-input"
-                    class="form-control"
-                    placeholder="Enter phone"
-                    formControlName="phone"
-                    required
-                  />
-                  <div class="invalid-feedback">Please enter a phone.</div>
-                </div>
-
-                <!-- User age -->
-                <div class="mb-3">
-                  <label for="userage-input" class="form-label">User Age</label>
-                  <input
-                    type="text"
-                    id="userage-input"
-                    class="form-control"
-                    placeholder="Enter age"
-                    formControlName="age"
-                    required
-                  />
-                  <div class="invalid-feedback">Please enter an age.</div>
-                </div>
-
-                <!-- User location -->
-                <div class="mb-3">
-                  <label for="userlocation-input" class="form-label"
-                    >User Location</label
-                  >
-                  <input
-                    type="text"
-                    id="userlocation-input"
-                    class="form-control"
-                    placeholder="Enter location"
-                    formControlName="location"
-                    required
-                  />
-                  <div class="invalid-feedback">Please enter a location.</div>
-                </div>
-
-                <!-- User description -->
-                <div class="mb-3">
-                  <label for="userdescription-input" class="form-label"
-                    >User Description</label
-                  >
-                  <input
-                    type="text"
-                    id="userdescription-input"
-                    class="form-control"
-                    placeholder="Enter description"
-                    formControlName="description"
+                    placeholder="Enter available cash"
+                    formControlName="cashDispo"
                     required
                   />
                   <div class="invalid-feedback">
-                    Please enter a description.
+                    Please enter cash availability.
+                  </div>
+                </div>
+
+                <!-- Total Portfolio Value -->
+                <div class="mb-3">
+                  <label for="valTotPortefeuille-input" class="form-label"
+                    >Total Portfolio Value</label
+                  >
+                  <input
+                    type="number"
+                    id="valTotPortefeuille-input"
+                    class="form-control"
+                    placeholder="Enter total value"
+                    formControlName="valTotPortefeuille"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please enter the total portfolio value.
+                  </div>
+                </div>
+
+                <!-- Total Return -->
+                <div class="mb-3">
+                  <label for="rendementTotal-input" class="form-label"
+                    >Total Return</label
+                  >
+                  <input
+                    type="number"
+                    id="rendementTotal-input"
+                    class="form-control"
+                    placeholder="Enter total return"
+                    formControlName="rendementTotal"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please enter the total return.
+                  </div>
+                </div>
+
+                <!-- Risk Profile -->
+                <div class="mb-3">
+                  <label for="riskProfile-input" class="form-label"
+                    >Risk Profile</label
+                  >
+                  <input
+                    type="number"
+                    id="riskProfile-input"
+                    class="form-control"
+                    placeholder="Enter risk profile"
+                    formControlName="riskProfile"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please enter the risk profile.
+                  </div>
+                </div>
+
+                <!-- Supported Currencies -->
+                <div class="mb-3">
+                  <label for="devisesSupportees-input" class="form-label"
+                    >Supported Currencies</label
+                  >
+                  <input
+                    type="text"
+                    id="devisesSupportees-input"
+                    class="form-control"
+                    placeholder="Enter supported currencies"
+                    formControlName="devisesSupportees"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please enter supported currencies.
+                  </div>
+                </div>
+
+                <!-- Bank Account ID -->
+                <div class="mb-3">
+                  <label for="compteBancaireId-input" class="form-label"
+                    >Bank Account ID</label
+                  >
+                  <input
+                    type="number"
+                    id="compteBancaireId-input"
+                    class="form-control"
+                    placeholder="Enter bank account ID"
+                    formControlName="compteBancaireId"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please enter the bank account ID.
                   </div>
                 </div>
               </div>
 
-              <!-- Modal Footer with buttons -->
+              <!-- Modal Footer -->
               <div class="col-lg-12">
                 <div class="text-end">
                   <button
                     type="button"
                     class="btn btn-outline-secondary me-1"
-                    (click)="newContactModal.hide()"
+                    (click)="newPortefeuilleModal.hide()"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    id="addContact-btn"
+                    id="addPortefeuille-btn"
                     class="btn btn-success"
                   >
                     Done
@@ -684,9 +709,7 @@
             </div>
           </form>
         </div>
-        <!-- end modal body -->
       </div>
-      <!-- end modal-content -->
     </div>
 
     <!-- end modal-dialog -->
