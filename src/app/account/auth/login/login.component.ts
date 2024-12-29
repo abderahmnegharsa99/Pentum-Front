@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     });
 
     // Get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
   }
 
   // Convenience getter for easy access to form fields
@@ -67,16 +66,11 @@ export class LoginComponent implements OnInit {
     // Call the login method from AuthService
     this._auth.login(loginRequest).subscribe({
       next: (response: AuthenticationResponse) => {
-        console.log(response.access_token);
+        // Store the token in local storage or cookies
+        localStorage.setItem("authToken", response.access_token); // Replace 'response.token' with the correct token key
+
         console.log("Login successful. Navigating to dashboard...");
-        this.router
-          .navigate(["/dashboard"])
-          .then(() => {
-            console.log("Navigation successful");
-          })
-          .catch((err) => {
-            console.error("Navigation error", err);
-          });
+        this.router.navigate(["/dashboard"], { skipLocationChange: true });
       },
       error: (err) => {
         this.error = err ? err.error.message : "Login failed";

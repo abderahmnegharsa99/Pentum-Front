@@ -1,21 +1,33 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
+import {
+  UntypedFormBuilder,
+  Validators,
+  UntypedFormGroup,
+  FormGroup,
+} from "@angular/forms";
 
-import { earningLineChart, salesAnalyticsDonutChart, ChatData } from './data';
-import { ChartType, ChatMessage } from './saas.model';
-import { ConfigService } from '../../../core/services/config.service';
+import { earningLineChart, salesAnalyticsDonutChart, ChatData } from "./data";
+import { ChartType, ChatMessage } from "./saas.model";
+import { ConfigService } from "../../../core/services/config.service";
+import { UserProfileService } from "src/app/core/services/user.service";
+import { CompteBancaire, User } from "src/app/core/models/auth.models";
+import { ModalDirective } from "ngx-bootstrap/modal";
 
 @Component({
-  selector: 'app-saas',
-  templateUrl: './saas.component.html',
-  styleUrls: ['./saas.component.scss']
+  selector: "app-saas",
+  templateUrl: "./saas.component.html",
+  styleUrls: ["./saas.component.scss"],
 })
 /**
  * Saas-dashboard component
  */
 export class SaasComponent implements OnInit, AfterViewInit {
+  saveWallt() {
+    console.log("azaze");
 
-  @ViewChild('scrollRef') scrollRef;
+    this.newContactModal.show();
+  }
+  @ViewChild("scrollRef") scrollRef;
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
@@ -25,14 +37,18 @@ export class SaasComponent implements OnInit, AfterViewInit {
   ChatData: ChatMessage[];
 
   sassEarning: any;
-  sassTopSelling:any;
+  sassTopSelling: any;
 
   formData: UntypedFormGroup;
 
   // Form submit
   chatSubmit: boolean;
 
-  constructor(public formBuilder: UntypedFormBuilder, private configService: ConfigService) { }
+  constructor(
+    public formBuilder: UntypedFormBuilder,
+    private configService: ConfigService,
+    private userService: UserProfileService
+  ) {}
 
   /**
    * Returns form
@@ -42,39 +58,87 @@ export class SaasComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Dashboards' }, { label: 'Saas', active: true }];
+    this.createContactForm = this.formBuilder.group({
+      id: [""],
+      img: ["", [Validators.required]],
+      phone: ["", [Validators.required]],
+      location: ["", [Validators.required]],
+      description: ["", [Validators.required]],
+      age: ["", [Validators.required]],
+      profession: ["", [Validators.required]],
+    });
+    this.breadCrumbItems = [
+      { label: "Dashboards" },
+      { label: "Saas", active: true },
+    ];
 
     this._fetchData();
 
     this.formData = this.formBuilder.group({
-      message: ['', [Validators.required]],
+      message: ["", [Validators.required]],
     });
 
-    this.configService.getConfig().subscribe(response => {
+    this.configService.getConfig().subscribe((response) => {
       this.sassEarning = response.sassEarning;
       this.sassTopSelling = response.sassTopSelling;
-    
     });
+
+    this.loadAccBancaier();
   }
 
-  /**
-   * Save the message in chat
-   */
+  compteBancaire: CompteBancaire;
+  portefeuilles: any[];
+  user: User;
+  createContactForm: FormGroup;
+
+  loadAccBancaier(): void {
+    // Get the current user from local storage (assuming it's stored as JSON)
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+    // Extract email from currentUser
+    const email = currentUser?.email;
+    console.log(email);
+
+    if (email) {
+      // Call the service to get the user by email
+      this.userService.getUserByEmail(email).subscribe((user: User) => {
+        this.user = user;
+        this.compteBancaire = user?.compteBancaire;
+        this.portefeuilles = user?.compteBancaire?.portefeuilles;
+        console.log(this.compteBancaire, "aaaaaaaaa");
+      });
+    }
+  }
+  @ViewChild("newContactModal", { static: false })
+  newContactModal?: ModalDirective;
+  savePortefeuilles() {
+    // Check if the form is valid before proceeding
+    if (this.createContactForm.valid) {
+      console.log("Form Values:", this.createContactForm.value);
+      // Handle form submission logic here (e.g., saving data)
+
+      // Reset form and close modal after saving
+      this.createContactForm.reset();
+      this.newContactModal?.hide();
+    } else {
+      console.log("Form is invalid");
+    }
+  }
   messageSave() {
-    const message = this.formData.get('message').value;
+    const message = this.formData.get("message").value;
     const currentDate = new Date();
     if (this.formData.valid && message) {
       // Message Push in Chat
       this.ChatData.push({
-        align: 'right',
-        name: 'Henry Wells',
+        align: "right",
+        name: "Henry Wells",
         message,
-        time: currentDate.getHours() + ':' + currentDate.getMinutes()
+        time: currentDate.getHours() + ":" + currentDate.getMinutes(),
       });
       this.onListScroll();
       // Set Form Data Reset
       this.formData = this.formBuilder.group({
-        message: null
+        message: null,
       });
     }
 
@@ -101,7 +165,7 @@ export class SaasComponent implements OnInit, AfterViewInit {
   }
 
   selectMonth(value) {
-    let data = value.target.value
+    let data = value.target.value;
     switch (data) {
       case "january":
         this.sassEarning = [
@@ -192,19 +256,19 @@ export class SaasComponent implements OnInit, AfterViewInit {
                 name: "Product D",
                 text: "Neque quis est",
                 sales: 41,
-                chartVariant: "#34c38f"
+                chartVariant: "#34c38f",
               },
               {
                 name: "Product E",
                 text: "Quis autem iure",
                 sales: 14,
-                chartVariant: "#556ee6"
+                chartVariant: "#556ee6",
               },
               {
                 name: "Product F",
                 text: "Sed aliquam mauris.",
                 sales: 85,
-                chartVariant: "#f46a6a"
+                chartVariant: "#f46a6a",
               },
             ],
           },
@@ -221,19 +285,19 @@ export class SaasComponent implements OnInit, AfterViewInit {
                 name: "Product A",
                 text: "Neque quis est",
                 sales: 37,
-                chartVariant: "#556ee6"
+                chartVariant: "#556ee6",
               },
               {
                 name: "Product B",
                 text: "Quis autem iure",
                 sales: 72,
-                chartVariant: "#f46a6a"
+                chartVariant: "#f46a6a",
               },
               {
                 name: "Product C",
                 text: "Sed aliquam mauris.",
                 sales: 54,
-                chartVariant: "#34c38f"
+                chartVariant: "#34c38f",
               },
             ],
           },
@@ -250,19 +314,19 @@ export class SaasComponent implements OnInit, AfterViewInit {
                 name: "Product G",
                 text: "Neque quis est",
                 sales: 37,
-                chartVariant: "#34c38f"
+                chartVariant: "#34c38f",
               },
               {
                 name: "Product H",
                 text: "Quis autem iure",
                 sales: 42,
-                chartVariant: "#556ee6"
+                chartVariant: "#556ee6",
               },
               {
                 name: "Product I",
                 text: "Sed aliquam mauris.",
                 sales: 63,
-                chartVariant: "#f46a6a"
+                chartVariant: "#f46a6a",
               },
             ],
           },
@@ -279,19 +343,19 @@ export class SaasComponent implements OnInit, AfterViewInit {
                 name: "Product A",
                 text: "Neque quis est",
                 sales: 37,
-                chartVariant: "#f46a6a"
+                chartVariant: "#f46a6a",
               },
               {
                 name: "Product B",
                 text: "Quis autem iure",
                 sales: 72,
-                chartVariant: "#556ee6"
+                chartVariant: "#556ee6",
               },
               {
                 name: "Product C",
                 text: "Sed aliquam mauris.",
                 sales: 54,
-                chartVariant: "#34c38f"
+                chartVariant: "#34c38f",
               },
             ],
           },
@@ -308,25 +372,24 @@ export class SaasComponent implements OnInit, AfterViewInit {
                 name: "Product A",
                 text: "Neque quis est",
                 sales: 37,
-                chartVariant: "#556ee6"
+                chartVariant: "#556ee6",
               },
               {
                 name: "Product B",
                 text: "Quis autem iure",
                 sales: 72,
-                chartVariant: "#34c38f"
+                chartVariant: "#34c38f",
               },
               {
                 name: "Product C",
                 text: "Sed aliquam mauris.",
                 sales: 54,
-                chartVariant: "#f46a6a"
-              }
-            ]
-          }
+                chartVariant: "#f46a6a",
+              },
+            ],
+          },
         ];
         break;
     }
   }
-
 }

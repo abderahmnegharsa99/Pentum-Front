@@ -1,181 +1,155 @@
 <div class="container-fluid">
-
-  <app-page-title title="Profile" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title
+    title="Profile"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
 
   <div class="row">
-    <div class="col-xl-4">
-      <div class="card overflow-hidden">
-        <div class="bg-primary-subtle">
-          <div class="row">
-            <div class="col-7">
-              <div class="text-primary p-3">
-                <h5 class="text-primary">Welcome Back !</h5>
-                <p>It will seem like simplified</p>
+    <ng-container>
+      <div class="row">
+        <!-- First Column (First Card) -->
+        <div class="col-md-6 col-xl-6">
+          <div class="card overflow-hidden">
+            <div class="bg-primary-subtle">
+              <div class="row">
+                <div class="col-7">
+                  <div class="text-primary p-3">
+                    <h5 class="text-primary">Welcome Back!</h5>
+                    <p>It will seem like simplified</p>
+                  </div>
+                </div>
+                <div class="col-5 align-self-end">
+                  <img
+                    src="assets/images/profile-img.png"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
               </div>
             </div>
-            <div class="col-5 align-self-end">
-              <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+            <div class="card-body pt-0">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="avatar-md profile-user-wid mb-4">
+                    <img
+                      src="assets/images/users/avatar-1.jpg"
+                      alt=""
+                      class="img-thumbnail rounded-circle"
+                    />
+                  </div>
+                  <h5 class="font-size-15 text-truncate">
+                    {{ user?.username }}
+                  </h5>
+                  <p class="text-muted mb-0 text-truncate">
+                    {{ user?.profession }}
+                  </p>
+                </div>
+                <div class="col-sm-8">
+                  <div class="pt-4">
+                    <div class="row">
+                      <div class="col-6">
+                        <h5 class="font-size-15">125</h5>
+                        <p class="text-muted mb-0">Projects</p>
+                      </div>
+                      <div class="col-6">
+                        <h5 class="font-size-15">
+                          ${{ user?.compteBancaire?.soldeCompte }}
+                        </h5>
+                        <p class="text-muted mb-0">Revenue</p>
+                      </div>
+                    </div>
+                    <div class="mt-4">
+                      <a
+                        (click)="editProfile()"
+                        href="javascript: void(0);"
+                        class="btn btn-primary btn-sm"
+                        >Edit Profile <i class="mdi mdi-arrow-right ms-1"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="card-body pt-0">
-          <div class="row">
-            <div class="col-sm-4">
-              <div class="avatar-md profile-user-wid mb-4">
-                <img src="assets/images/users/avatar-1.jpg" alt="" class="img-thumbnail rounded-circle">
-              </div>
-              <h5 class="font-size-15 text-truncate">Cynthia Price</h5>
-              <p class="text-muted mb-0 text-truncate">UI/UX Designer</p>
-            </div>
-
-            <div class="col-sm-8">
-              <div class="pt-4">
-
-                <div class="row">
-                  <div class="col-6">
-                    <h5 class="font-size-15">125</h5>
-                    <p class="text-muted mb-0">Projects</p>
-                  </div>
-                  <div class="col-6">
-                    <h5 class="font-size-15">$1245</h5>
-                    <p class="text-muted mb-0">Revenue</p>
-                  </div>
-                </div>
-                <div class="mt-4">
-                  <a href="javascript: void(0);" class="btn btn-primary btn-sm">View Profile <i
-                      class="mdi mdi-arrow-right ms-1"></i></a>
-                </div>
+        <!-- Second Column (Second Card) -->
+        <div class="col-md-6 col-xl-6">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Personal Information</h4>
+              <p class="text-muted mb-4">
+                {{ user?.description }}
+              </p>
+              <div class="table-responsive">
+                <table class="table table-nowrap mb-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Full Name :</th>
+                      <td>{{ user?.username }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Mobile :</th>
+                      <td>{{ user?.phone }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">E-mail :</th>
+                      <td>{{ user?.mail }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Location :</th>
+                      <td>{{ user?.location }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- end card -->
+    </ng-container>
 
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title mb-4">Personal Information</h4>
-
-          <p class="text-muted mb-4">Hi I'm Cynthia Price,has been the industry's standard dummy text To an English
-            person, it will seem like simplified English, as a skeptical Cambridge.</p>
-          <div class="table-responsive">
-            <table class="table table-nowrap mb-0">
-              <tbody>
-                <tr>
-                  <th scope="row">Full Name :</th>
-                  <td>Cynthia Price</td>
-                </tr>
-                <tr>
-                  <th scope="row">Mobile :</th>
-                  <td>(123) 123 1234</td>
-                </tr>
-                <tr>
-                  <th scope="row">E-mail :</th>
-                  <td>cynthiaskote@gmail.com</td>
-                </tr>
-                <tr>
-                  <th scope="row">Location :</th>
-                  <td>California, United States</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- end card -->
-
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title mb-5">Experience</h4>
-          <div class="">
-            <ul class="verti-timeline list-unstyled">
-              <li class="event-list active">
-                <div class="event-timeline-dot">
-                  <i class="bx bx-right-arrow-circle bx-fade-right"></i>
-                </div>
-                <div class="d-flex">
-                  <div class="flex-shrink-0 me-3">
-                    <i class="bx bx-server h4 text-primary"></i>
-                  </div>
-                  <div class="flex-grow-1">
-                    <div>
-                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Back end Developer</a></h5>
-                      <span class="text-primary">2016 - 19</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="event-list">
-                <div class="event-timeline-dot">
-                  <i class="bx bx-right-arrow-circle"></i>
-                </div>
-                <div class="d-flex">
-                  <div class="flex-shrink-0 me-3">
-                    <i class="bx bx-code h4 text-primary"></i>
-                  </div>
-                  <div class="flex-grow-1">
-                    <div>
-                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Front end Developer</a></h5>
-                      <span class="text-primary">2013 - 16</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="event-list">
-                <div class="event-timeline-dot">
-                  <i class="bx bx-right-arrow-circle"></i>
-                </div>
-                <div class="d-flex">
-                  <div class="flex-shrink-0 me-3">
-                    <i class="bx bx-edit h4 text-primary"></i>
-                  </div>
-                  <div class="flex-grow-1">
-                    <div>
-                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">UI /UX Designer</a></h5>
-                      <span class="text-primary">2011 - 13</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-      <!-- end card -->
-    </div>
-
-    <div class="col-xl-8">
-
+    <div class="col-xl-12">
       <div class="row">
         <div *ngFor="let stat of statData" class="col-md-4">
-          <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
+          <app-stat
+            [title]="stat.title"
+            [value]="stat.value"
+            [icon]="stat.icon"
+          ></app-stat>
         </div>
-
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <div class="card-body">
           <h4 class="card-title mb-4">Revenue</h4>
-          <apx-chart dir="ltr" class="apex-charts" [series]="revenueBarChart.series" [chart]="revenueBarChart.chart"
-            [xaxis]="revenueBarChart.xaxis" [colors]="revenueBarChart.colors" [yaxis]="revenueBarChart.yaxis"
-            [dataLabels]="revenueBarChart.dataLabels" [stroke]="revenueBarChart.stroke"
-            [plotOptions]="revenueBarChart.plotOptions" [fill]="revenueBarChart.fill">
+          <apx-chart
+            dir="ltr"
+            class="apex-charts"
+            [series]="revenueBarChart.series"
+            [chart]="revenueBarChart.chart"
+            [xaxis]="revenueBarChart.xaxis"
+            [colors]="revenueBarChart.colors"
+            [yaxis]="revenueBarChart.yaxis"
+            [dataLabels]="revenueBarChart.dataLabels"
+            [stroke]="revenueBarChart.stroke"
+            [plotOptions]="revenueBarChart.plotOptions"
+            [fill]="revenueBarChart.fill"
+          >
           </apx-chart>
         </div>
-      </div>
+      </div> -->
 
       <div class="card">
-        <div class="card-body">
-          <h4 class="card-title mb-4">My Projects</h4>
+        <div class="card-body col-md-12">
+          <h4 class="card-title mb-4">My Wallets</h4>
           <div class="table-responsive">
             <table class="table table-nowrap table-hover mb-0">
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Projects</th>
-                  <th scope="col">Start Date</th>
-                  <th scope="col">Deadline</th>
-                  <th scope="col">Budget</th>
+                  <th scope="col">Wallet</th>
+                  <th scope="col">Opening Date</th>
+                  <th scope="col">Last Transaction</th>
+                  <th scope="col">Solde</th>
                 </tr>
               </thead>
               <tbody>
@@ -235,6 +209,188 @@
         </div>
       </div>
     </div>
+  </div>
+  <!-- Modal -->
+  <div
+    bsModal
+    #newContactModal="bs-modal"
+    class="modal fade"
+    id="newContactModal"
+    tabindex="-1"
+    aria-labelledby="newContactModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newContactModalLabel">Edit Profile</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="newContactModal.hide()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form
+            (ngSubmit)="saveProfile()"
+            [formGroup]="createContactForm"
+            autocomplete="off"
+            class="needs-validation createContact-form"
+            id="createContact-form"
+            novalidate
+          >
+            <div class="row">
+              <div class="col-lg-12">
+                <input type="hidden" class="form-control" id="userid-input" />
+
+                <!-- Avatar Section -->
+                <div class="text-center mb-4">
+                  <div class="position-relative d-inline-block">
+                    <div class="position-absolute bottom-0 end-0">
+                      <label
+                        for="member-image-input"
+                        class="mb-0"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="right"
+                        title="Select Member Image"
+                      >
+                        <div class="avatar-xs">
+                          <div
+                            class="avatar-title bg-light border rounded-circle text-muted cursor-pointer"
+                          >
+                            <i class="bx bxs-image-alt"></i>
+                          </div>
+                        </div>
+                      </label>
+                      <input
+                        class="form-control d-none"
+                        id="member-image-input"
+                        type="file"
+                        accept="image/png, image/gif, image/jpeg"
+                        (change)="fileChange($event)"
+                      />
+                    </div>
+                    <div class="avatar-lg">
+                      <div class="avatar-title bg-light rounded-circle">
+                        <img
+                          src="assets/images/users/user-dummy-img.jpg"
+                          id="member-img"
+                          class="avatar-md rounded-circle h-auto"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- User profession -->
+                <div class="mb-3">
+                  <label for="userprofession-input" class="form-label"
+                    >User Profession</label
+                  >
+                  <input
+                    type="text"
+                    id="userprofession-input"
+                    class="form-control"
+                    placeholder="Enter profession"
+                    formControlName="profession"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter a profession.</div>
+                </div>
+
+                <!-- User phone -->
+                <div class="mb-3">
+                  <label for="userphone-input" class="form-label"
+                    >User Phone</label
+                  >
+                  <input
+                    type="text"
+                    id="userphone-input"
+                    class="form-control"
+                    placeholder="Enter phone"
+                    formControlName="phone"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter a phone.</div>
+                </div>
+
+                <!-- User age -->
+                <div class="mb-3">
+                  <label for="userage-input" class="form-label">User Age</label>
+                  <input
+                    type="text"
+                    id="userage-input"
+                    class="form-control"
+                    placeholder="Enter age"
+                    formControlName="age"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter an age.</div>
+                </div>
+
+                <!-- User location -->
+                <div class="mb-3">
+                  <label for="userlocation-input" class="form-label"
+                    >User Location</label
+                  >
+                  <input
+                    type="text"
+                    id="userlocation-input"
+                    class="form-control"
+                    placeholder="Enter location"
+                    formControlName="location"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter a location.</div>
+                </div>
+
+                <!-- User description -->
+                <div class="mb-3">
+                  <label for="userdescription-input" class="form-label"
+                    >User Description</label
+                  >
+                  <input
+                    type="text"
+                    id="userdescription-input"
+                    class="form-control"
+                    placeholder="Enter description"
+                    formControlName="description"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please enter a description.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal Footer with buttons -->
+              <div class="col-lg-12">
+                <div class="text-end">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary me-1"
+                    (click)="newContactModal.hide()"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    id="addContact-btn"
+                    class="btn btn-success"
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- end modal body -->
+      </div>
+      <!-- end modal-content -->
+    </div>
+
+    <!-- end modal-dialog -->
   </div>
   <!-- end row -->
 </div>

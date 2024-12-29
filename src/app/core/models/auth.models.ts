@@ -12,8 +12,23 @@ export class User {
   photo: string; // Matches `photo` from Spring Boot entity
   mail: string; // Matches `mail` from Spring Boot entity (used as username for login)
   motDePasse: string; // Matches `motDePasse` from Spring Boot entity
-  role: string; // Matches `role` (of type `ROLE`) from Spring Boot entity
+  phone: string; // Matches `phone` from Spring Boot entity
+  location: string; // Matches `location` from Spring Boot entity
+  description: string; // Matches `description` from Spring Boot entity
+  age: string; // Matches `age` from Spring Boot entity
+  profession: string; // Matches `profession` from Spring Boot entity
+  role: string; // Matches `role` (Enum ROLE) from Spring Boot entity
+  token?: string; // JWT token for session management, not in the backend model
+  username: string;
+  portefeuille?: any; // Portefeuille entity, if needed in Angular
+  compteBancaire?: CompteBancaire; // Update to include CompteBancaire
+}
 
-  // Additional properties for authentication (optional)
-  token?: string; // JWT token for session management
+export interface CompteBancaire {
+  idCmpt: number; // Unique identifier for the bank account
+  numCompte: number; // Account number
+  nomBanque: string; // Name of the bank
+  dateOuverture: Date; // Date when the account was opened
+  soldeCompte: number; // Current balance of the account
+  portefeuilles: any[];
 }
