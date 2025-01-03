@@ -26,7 +26,7 @@ export interface AuthenticationResponse {
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
-  private apiUrl = "http://localhost:3050/auth";
+  private apiUrl = "http://localhost:8080/auth";
   user: User;
   constructor(private http: HttpClient) {}
 

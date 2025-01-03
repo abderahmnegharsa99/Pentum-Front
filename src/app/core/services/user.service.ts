@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class UserProfileService {
-  private apiUrl = "http://localhost:3050/user";
+  private apiUrl = "http://localhost:8080/user";
   user: User;
   constructor(private http: HttpClient) {}
 
@@ -42,7 +42,7 @@ export class UserProfileService {
 
   getAccBancaier(email: string): Observable<any> {
     // Endpoint URL to get CompteBancaire by user's email (adjust as needed)
-    const url = `http://localhost:3050/user/get-compte-bancaire`; // Your backend endpoint
+    const url = `http://localhost:8080/user/get-compte-bancaire`; // Your backend endpoint
     const params = new HttpParams().set("email", email);
 
     // Make the GET request to fetch the associated CompteBancaire
@@ -51,7 +51,7 @@ export class UserProfileService {
 
   createPortefeuille(portefeuilleDTO: any): Observable<any> {
     // Endpoint URL to create a new Portefeuille (adjust as needed)
-    const url = `http://localhost:3050//user/portefeuille`; // Your backend endpoint
+    const url = `http://localhost:8080/user/{idU}/portefeuille`; // Your backend endpoint
 
     // Make the POST request to create a new Portefeuille
     return this.http.post<any>(url, portefeuilleDTO);
